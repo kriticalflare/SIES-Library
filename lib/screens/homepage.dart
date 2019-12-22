@@ -69,6 +69,7 @@ class _HomePageState extends State<HomePage> {
             return BookListItem(
               book: bookList[index],
               index: index,
+              pop: false,
             );
           }
         });
@@ -119,14 +120,12 @@ class BookSearch extends SearchDelegate {
         icon: Icon(
           Icons.clear,
         ),
-        color: Colors.black,
         onPressed: () {
           query = "";
         },
       ),
       IconButton(
         icon: Icon(Icons.tune),
-        color: Colors.black,
         onPressed: () {
           _showDialog(context);
         },
@@ -138,7 +137,6 @@ class BookSearch extends SearchDelegate {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(Icons.arrow_back),
-      color: Colors.black,
       onPressed: () {
         close(context, null);
       },
@@ -187,17 +185,7 @@ class BookSearch extends SearchDelegate {
             return ListView.builder(
               itemCount: results.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Icon(Icons.book),
-                  title: Text(results[index].title),
-                  onTap: () {
-//                  Navigator.pushReplacement(context, MaterialPageRoute(
-//                      builder: (context){
-//                        return DetailsPage(pokemon: pokemons[index],);
-//                      }
-//                  ));
-                  },
-                );
+                return BookListItem(book: results[index],pop: true,);
               },
             );
           }
@@ -222,11 +210,14 @@ class BookSearch extends SearchDelegate {
     );
   }
 
+  // https://github.com/flutter/flutter/issues/32180
+  @override
+  ThemeData appBarTheme(BuildContext context) => Theme.of(context);
+
   Future<List<Results>> searchBooks(String query, String searchType) async {
     LibraryService libraryService = LibraryService();
     List resultList =
         await libraryService.getSearchResult(searchType, query, '25', '1');
-    print(resultList);
     return resultList;
   }
 
@@ -277,7 +268,8 @@ class BookSearch extends SearchDelegate {
     List searchTypeList = [
       SearchType.TITLE,
       SearchType.AUTHOR,
-      SearchType.PUBLISHER
+      SearchType.PUBLISHER,
+      SearchType.ISBN
     ];
     for (String type in searchTypeList) {
       var newItem = DropdownMenuItem(
