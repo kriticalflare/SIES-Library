@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:http/http.dart' as http;
 
@@ -11,8 +12,10 @@ class NetworkHelper{
 
   Future<dynamic> getData(String requestType,String query, String limit, String page) async{
     // requestType can be title , author or publisher
-    String url = '$apiUrl$requestType=$query&limit=$limit&page=$page';
-    print(url);
+    String encodedQuery = Uri.encodeComponent(query); //Encode the query acc to https://www.w3schools.com/tags/ref_urlencode.asp
+//    print('EncodedQuery : $encodedQuery');
+    String url = '$apiUrl$requestType=$encodedQuery&limit=$limit&page=$page';
+//    print(url);
     http.Response response = await http.get(url);
     if(response.statusCode == 200){
       var data = response.body.toString();
