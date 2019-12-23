@@ -3,11 +3,14 @@ import 'package:sies_library/models/book.dart';
 
 class Infographic extends StatelessWidget {
   final Results book;
+
   Infographic({@required this.book});
+
   @override
   Widget build(BuildContext context) {
     String year;
     String pages;
+    String quantity;
     if (book.year != null) {
       year = book.year.toString();
     } else {
@@ -18,6 +21,12 @@ class Infographic extends StatelessWidget {
     } else {
       pages = 'N/A';
     }
+    if (book.quantity != null) {
+      quantity = book.quantity.toString();
+    } else {
+      quantity = 'N/A';
+    }
+
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -29,8 +38,8 @@ class Infographic extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Chip(
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0)),
               label: Text('$year'),
             ),
           ),
@@ -41,9 +50,21 @@ class Infographic extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(4.0),
             child: Chip(
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0)),
               label: Text('$pages'),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Text('Quantity: '),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Chip(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0)),
+              label: Text('$quantity'),
             ),
           )
         ],
