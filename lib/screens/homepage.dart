@@ -24,9 +24,9 @@ class _HomePageState extends State<HomePage> {
     bookList.addAll(resultList);
     isLoading = false;
     setState(() {});
-    for (Results book in bookList) {
-      print('id :${book.sId} ${book.title}');
-    }
+//    for (Results book in bookList) {
+//      print('id :${book.sId} ${book.title}');
+//    }
   }
 
   @override
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
 
 class BookSearch extends SearchDelegate {
   String _searchType;
-  String _sortType = QuantitySort.DESCENDING;
+  String _sortType = SortType.QUANTITY_DESCENDING;
 
   BookSearch(
     this._searchType,
@@ -307,12 +307,16 @@ class BookSearch extends SearchDelegate {
   DropdownButton<String> sortDropdown(StateSetter setState) {
     List<DropdownMenuItem<String>> dropDownMenuItems = [];
     List sortTypeList = [
-      QuantitySort.DESCENDING,
-      QuantitySort.ASCENDING,
+      SortType.QUANTITY_DESCENDING,
+      SortType.QUANTITY_ASCENDING,
+      SortType.YEAR_DESCENDING,
+      SortType.YEAR_ASCENDING,
     ];
     var sortMap = {
-      QuantitySort.DESCENDING : 'Descending',
-      QuantitySort.ASCENDING : 'Ascending'
+      SortType.YEAR_DESCENDING : 'Newest',
+      SortType.YEAR_ASCENDING : 'Oldest',
+      SortType.QUANTITY_DESCENDING : 'Maximum',
+      SortType.QUANTITY_ASCENDING : 'Minimum'
     };
     for (String type in sortTypeList) {
       var newItem = DropdownMenuItem(

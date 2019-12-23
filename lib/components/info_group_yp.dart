@@ -11,7 +11,7 @@ class Infographic extends StatelessWidget {
     String year;
     String pages;
     String quantity;
-    if (book.year != null) {
+    if (book.year != null || book.year != 0) {
       year = book.year.toString();
     } else {
       year = 'N/A';

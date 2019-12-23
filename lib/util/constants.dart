@@ -7,7 +7,9 @@ class SearchType{
 }
 
 
-class QuantitySort{
-  static const ASCENDING = 'Quantity';
-  static const DESCENDING = '-Quantity';
+class SortType{
+  static const QUANTITY_ASCENDING = 'Quantity';
+  static const QUANTITY_DESCENDING = '-Quantity';
+  static const YEAR_ASCENDING = 'Year';
+  static const YEAR_DESCENDING = '-Year';
 }
