@@ -202,7 +202,7 @@ class BookSearch extends SearchDelegate {
         child: Padding(
           padding: EdgeInsets.all(20.0),
           child: Text(
-            "Tip: Tap the icon on top left to search according to Title, Author, Publisher etc",
+            "Tip: Tap the icon on top right to search according to Title, Author, Publisher etc",
             style: TextStyle(fontSize: 14),
           ),
         ),
