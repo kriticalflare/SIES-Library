@@ -3,6 +3,7 @@ import 'package:sies_library/components/BookListItem.dart';
 import 'package:sies_library/models/book.dart';
 import 'package:sies_library/services/library_service.dart';
 import 'package:sies_library/util/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,6 +16,15 @@ class _HomePageState extends State<HomePage> {
   int _pageNumber;
   ScrollController sc;
   String searchType;
+
+  _launchURL() async {
+    const url = 'https://github.com/kriticalflare/SIES-Library';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   void getResults(int pageNumber) async {
     LibraryService libraryService = LibraryService();
@@ -86,7 +96,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sies Library'),
+        title: GestureDetector(
+          onTap: (){
+            showAboutDialog(context: context ,
+                applicationName: 'Sies Library' ,
+                applicationVersion: '1.0.0' ,
+                applicationIcon: Image.asset('assets/appicon.png'),
+                applicationLegalese: 'App by @kriticalflare  \n\nUses icons from icons8.com',
+                children:[
+                  Padding(
+                    padding: EdgeInsets.only(top: 30),
+                    child: Center(
+                      child: GestureDetector(
+                          onTap: (){
+                            _launchURL();
+                          },
+                          child: Image.asset('assets/github.png' , height: 70, width: 70,)
+                      ),
+                    ),
+                  )
+                ] );
+          },
+          child: Text(
+            'Sies Library',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
       body: SafeArea(
         child: Container(
@@ -284,9 +319,17 @@ class BookSearch extends SearchDelegate {
       SearchType.PUBLISHER,
       SearchType.ISBN
     ];
+
+    var searchMap = {
+      SearchType.TITLE: 'Title',
+      SearchType.AUTHOR: 'Author',
+      SearchType.PUBLISHER: 'Publisher',
+      SearchType.ISBN: 'ISBN',
+    };
+
     for (String type in searchTypeList) {
       var newItem = DropdownMenuItem(
-        child: Text(type),
+        child: Text(searchMap[type]),
         value: type,
       );
       dropDownMenuItems.add(newItem);
