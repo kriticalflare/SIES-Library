@@ -18,8 +18,9 @@ class _HomePageState extends State<HomePage> {
 
   void getResults(int pageNumber) async {
     LibraryService libraryService = LibraryService();
+    // '' is passed to sort type for unsorted results
     List resultList = await libraryService.getSearchResult(
-        SearchType.TITLE, '', '20', '$pageNumber');
+        SearchType.TITLE, '', '20', '$pageNumber', '');
     bookList.addAll(resultList);
     isLoading = false;
     setState(() {});
@@ -108,6 +109,7 @@ class _HomePageState extends State<HomePage> {
 
 class BookSearch extends SearchDelegate {
   String _searchType;
+  String _sortType = QuantitySort.DESCENDING;
 
   BookSearch(
     this._searchType,
@@ -217,7 +219,7 @@ class BookSearch extends SearchDelegate {
   Future<List<Results>> searchBooks(String query, String searchType) async {
     LibraryService libraryService = LibraryService();
     List resultList =
-        await libraryService.getSearchResult(searchType, query, '25', '1');
+        await libraryService.getSearchResult(searchType, query, '25', '1', _sortType);
     return resultList;
   }
 
@@ -243,7 +245,18 @@ class BookSearch extends SearchDelegate {
                       builder: (BuildContext context, StateSetter setState) {
                         return searchTypeDropdown(setState);
                       },
-                    )
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Sort by: '),
+                    StatefulBuilder(
+                      builder: (BuildContext context, StateSetter setState) {
+                        return sortDropdown(setState);
+                      },
+                    ),
                   ],
                 )
               ],
@@ -287,6 +300,35 @@ class BookSearch extends SearchDelegate {
           _searchType = value;
         });
         //TODO: set new Search type. Provider Time ?
+      },
+    );
+  }
+
+  DropdownButton<String> sortDropdown(StateSetter setState) {
+    List<DropdownMenuItem<String>> dropDownMenuItems = [];
+    List sortTypeList = [
+      QuantitySort.DESCENDING,
+      QuantitySort.ASCENDING,
+    ];
+    var sortMap = {
+      QuantitySort.DESCENDING : 'Descending',
+      QuantitySort.ASCENDING : 'Ascending'
+    };
+    for (String type in sortTypeList) {
+      var newItem = DropdownMenuItem(
+        child: Text(sortMap[type]),
+        value: type,
+      );
+      dropDownMenuItems.add(newItem);
+    }
+
+    return DropdownButton<String>(
+      value: _sortType,
+      items: dropDownMenuItems,
+      onChanged: (value) {
+        setState(() {
+          _sortType = value;
+        });
       },
     );
   }

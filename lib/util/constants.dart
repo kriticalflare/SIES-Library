@@ -5,3 +5,9 @@ class SearchType{
   static const PUBLISHER = 'publisher';
   static const ISBN = 'isbn';
 }
+
+
+class QuantitySort{
+  static const ASCENDING = 'Quantity';
+  static const DESCENDING = '-Quantity';
+}

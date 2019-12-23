@@ -6,15 +6,15 @@ import 'package:http/http.dart' as http;
 class NetworkHelper{
 //  String limit = '5';
 //  String page = '0';
-//  https://barathlibrary.herokuapp.com/book?title=Fundamentals%20of%20physics&limit=20&page=1
+//  https://barathlibrary.herokuapp.com/book?search=programming&limit=60&page=1&sort=-Quantity
 
   final String apiUrl = 'https://barathlibrary.herokuapp.com/book?';
 
-  Future<dynamic> getData(String requestType,String query, String limit, String page) async{
+  Future<dynamic> getData(String requestType,String query, String limit, String page,String sortType) async{
     // requestType can be title , author or publisher
     String encodedQuery = Uri.encodeComponent(query); //Encode the query acc to https://www.w3schools.com/tags/ref_urlencode.asp
 //    print('EncodedQuery : $encodedQuery');
-    String url = '$apiUrl$requestType=$encodedQuery&limit=$limit&page=$page';
+    String url = '$apiUrl$requestType=$encodedQuery&limit=$limit&page=$page&sort=$sortType';
 //    print(url);
     http.Response response = await http.get(url);
     if(response.statusCode == 200){
