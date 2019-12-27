@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:sies_library/components/BookListItem.dart';
 import 'package:sies_library/models/book.dart';
+import 'package:sies_library/models/sort_state.dart';
 import 'package:sies_library/services/library_service.dart';
 import 'package:sies_library/util/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -135,7 +137,7 @@ class _HomePageState extends State<HomePage> {
         ),
         onPressed: () {
 //          getResults(_pageNumber);
-          showSearch(context: context, delegate: BookSearch(searchType));
+          showSearch(context: context, delegate: BookSearch());
         },
       ),
     );
@@ -143,12 +145,17 @@ class _HomePageState extends State<HomePage> {
 }
 
 class BookSearch extends SearchDelegate {
-  String _searchType;
-  String _sortType = SortType.QUANTITY_DESCENDING;
 
-  BookSearch(
-    this._searchType,
-  );
+  var sortBox;
+  SortState sortState;
+
+  String _searchType;
+  String _sortType;
+//  = SortType.QUANTITY_DESCENDING;
+
+  BookSearch(){
+    _handleSortState();
+  }
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -258,6 +265,21 @@ class BookSearch extends SearchDelegate {
     return resultList;
   }
 
+  void _handleSortState() async {
+    try{
+      sortBox = await Hive.openBox('sortBox');
+      sortState = sortBox.getAt(0);
+//      print('successfully read from hive');
+    }on RangeError{
+//      print('fail to read from hive');
+      // first launch , user prefs not set
+      sortState = SortState(searchType: SearchType.TITLE, sortType: SortType.YEAR_DESCENDING);
+    } finally {
+      _searchType = sortState.searchType;
+      _sortType = sortState.sortType;
+    }
+  }
+
   void _showDialog(BuildContext context) {
     // flutter defined function
     showDialog(
@@ -341,6 +363,7 @@ class BookSearch extends SearchDelegate {
       onChanged: (value) {
         setState(() {
           _searchType = value;
+          sortBox.put(0, SortState(sortType: _sortType,searchType:_searchType));
         });
         //TODO: set new Search type. Provider Time ?
       },
@@ -375,6 +398,7 @@ class BookSearch extends SearchDelegate {
       onChanged: (value) {
         setState(() {
           _sortType = value;
+          sortBox.put(0, SortState(sortType: _sortType,searchType:_searchType));
         });
       },
     );
