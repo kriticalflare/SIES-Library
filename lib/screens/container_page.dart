@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sies_library/providers/api_provider.dart';
 import 'package:sies_library/screens/favourites_page.dart';
 import 'package:sies_library/screens/homepage.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -76,9 +78,12 @@ class _ContainerPageState extends State<ContainerPage> {
           ),
         ),
       ),
-      body: PageStorage(
-        bucket: _bucket,
-        child: currentPage,
+      body: ChangeNotifierProvider<ApiProvider>(
+        create: (_) => ApiProvider(),
+        child: PageStorage(
+          bucket: _bucket,
+          child: currentPage,
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
@@ -101,7 +106,7 @@ class _ContainerPageState extends State<ContainerPage> {
                   IconButton(
                     icon: Icon(Icons.home),
                     onPressed: () {
-                       if (currentPage != pages[0]) {
+                      if (currentPage != pages[0]) {
                         setState(() {
                           currentPage = pages[0];
                         });

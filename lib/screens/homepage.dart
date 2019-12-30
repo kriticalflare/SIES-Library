@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sies_library/components/BookListItem.dart';
+import 'package:sies_library/providers/api_provider.dart';
 import 'package:sies_library/services/library_service.dart';
 import 'package:sies_library/util/constants.dart';
 
@@ -11,36 +13,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List bookList = [];
-  bool isLoading;
-  int _pageNumber;
+  // List bookList = [];
+  // bool isLoading;
+  // int _pageNumber;
   ScrollController sc;
-  String searchType;
+  // String searchType;
 
-  void getResults(int pageNumber) async {
-    LibraryService libraryService = LibraryService();
-    // '' is passed to sort type for unsorted results
-    List resultList = await libraryService.getSearchResult(
-        SearchType.TITLE, '', '20', '$pageNumber', '');
-    bookList.addAll(resultList);
-    PageStorage.of(context)
-        .writeState(context, bookList, identifier: ValueKey('bookList'));
-    isLoading = false;
-    setState(() {});
-  }
+  // void getResults(int pageNumber) async {
+  //   LibraryService libraryService = LibraryService();
+  //   // '' is passed to sort type for unsorted results
+  //   List resultList = await libraryService.getSearchResult(
+  //       SearchType.TITLE, '', '20', '$pageNumber', '');
+  //   bookList.addAll(resultList);
+  //   PageStorage.of(context)
+  //       .writeState(context, bookList, identifier: ValueKey('bookList'));
+  //   isLoading = false;
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
-    bookList = PageStorage.of(context)
-            .readState(context, identifier: ValueKey('bookList')) ??
-        [];
-    isLoading = true;
-    _pageNumber = PageStorage.of(context)
-            .readState(context, identifier: ValueKey('pageNumber')) ??
-        0;
-    getResults(++_pageNumber);
-    searchType = SearchType.TITLE;
+    // bookList = PageStorage.of(context)
+    //         .readState(context, identifier: ValueKey('bookList')) ??
+    //     [];
+    // isLoading = true;
+    // _pageNumber = PageStorage.of(context)
+    //         .readState(context, identifier: ValueKey('pageNumber')) ??
+    //     0;
+    // getResults(++_pageNumber);
+    // searchType = SearchType.TITLE;
   }
 
   Widget _buildProgressIndicator() {
@@ -52,30 +54,27 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _createListView() {
+  Widget _createListView(ApiProvider apiProvider) {
     sc = ScrollController();
     sc.addListener(() {
       if (sc.position.maxScrollExtent == sc.position.pixels) {
-        if (isLoading == false) {
-          _pageNumber = _pageNumber + 1;
-          PageStorage.of(context).writeState(context, _pageNumber,
-              identifier: ValueKey('pageNumber'));
-          getResults(_pageNumber);
+        if (apiProvider.isLoading == false) {
+          apiProvider.getResults();
           // Perform event when user reach at the end of list (e.g. do Api call)
         }
       }
     });
     return ListView.builder(
         controller: sc,
-        itemCount: bookList.length + 1,
+        itemCount: apiProvider.bookList.length + 1,
         itemBuilder: (BuildContext context, int index) {
-          if (index == bookList.length) {
+          if (index == apiProvider.bookList.length) {
             return ListTile(
               title: _buildProgressIndicator(),
             );
           } else {
             return BookListItem(
-              book: bookList[index],
+              book: apiProvider.bookList[index],
               index: index,
               pop: false,
             );
@@ -91,9 +90,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: bookList.isEmpty
-            ? Center(child: CircularProgressIndicator())
-            : _createListView());
+    return  Consumer<ApiProvider>(
+            builder: (context, apiProvider,_) {
+              return Container(
+            child: apiProvider.bookList.isEmpty
+                ? Center(child: CircularProgressIndicator())
+                : _createListView(apiProvider));
+            },
+          );
   }
 }
