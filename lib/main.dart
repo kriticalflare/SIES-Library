@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:sies_library/screens/homepage.dart';
+import 'package:sies_library/screens/container_page.dart';
 import 'models/sort_state.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData.dark(),
-      home: HomePage(),
+      home: ContainerPage(),
     );
   }
 }
