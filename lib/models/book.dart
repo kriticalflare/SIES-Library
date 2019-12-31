@@ -109,4 +109,24 @@ class Results {
     data['__v'] = this.iV;
     return data;
   }
+
+  Map<String, dynamic> toJsonDB() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['sId'] = this.sId;
+    data['sN'] = this.sN;
+    data['author1'] = this.author1;
+    data['author2'] = this.author2;
+    data['author3'] = this.author3;
+    data['title'] = this.title;
+    data['edition'] = this.edition;
+    data['year'] = this.year;
+    data['publisher'] = this.publisher;
+    data['pages'] = this.pages;
+    data['language'] = this.language;
+    data['iSBN/ISSN'] = this.iSBNISSN;
+    data['quantity'] = this.quantity;
+    data['iv'] = this.iV;
+    return data;
+  }
+
 }

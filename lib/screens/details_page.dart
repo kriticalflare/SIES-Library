@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sies_library/components/info_group_yp.dart';
+import 'package:sies_library/database/favourites_dao.dart';
 import 'package:sies_library/models/book.dart';
 import 'package:sies_library/components/author_row.dart';
 import 'package:sies_library/components/publisher_info.dart';
 import 'package:sies_library/components/lang_isbn.dart';
+
 class DetailsPage extends StatefulWidget {
   final Results book;
 
@@ -14,6 +17,19 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  
+  Widget favouritesButton(Results book) {
+    IconData icon = Icons.star;
+    FavouritesDao favouritesDao = Provider.of<FavouritesDao>(context);
+    return IconButton(
+      icon: Icon(icon),
+      onPressed: () {
+        print(book.title);
+        favouritesDao.insertFav(book);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Results _book = widget.book;
@@ -26,6 +42,9 @@ class _DetailsPageState extends State<DetailsPage> {
           },
         ),
         title: Text('Details'),
+        actions: <Widget>[
+          favouritesButton(_book),
+        ],
       ),
       body: SafeArea(
         child: Container(
@@ -35,12 +54,10 @@ class _DetailsPageState extends State<DetailsPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-//            Image.asset(name),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
                   'assets/book.jpg',
-//                  'https://via.placeholder.com/250.png/09f/fff',
                   height: 250,
                   width: MediaQuery.of(context).size.width,
                 ),
@@ -55,10 +72,12 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
               ),
-              AuthorRow(book:_book),
+              AuthorRow(book: _book),
               PublisherEdition(book: _book),
-              Infographic(book: _book,),
-              LangIsbn(book:_book),
+              Infographic(
+                book: _book,
+              ),
+              LangIsbn(book: _book),
             ],
           ),
         ),
@@ -66,4 +85,3 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 }
-

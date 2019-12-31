@@ -52,7 +52,6 @@ class BookSearch extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    // TODO: implement buildResults
     return FutureBuilder(
       future: searchBooks(query, _searchType),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -103,7 +102,6 @@ class BookSearch extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // TODO: implement buildSuggestions
     return Center(
       child: Container(
         child: Padding(
@@ -228,7 +226,6 @@ class BookSearch extends SearchDelegate {
           _searchType = value;
           sortBox.put(0, SortState(sortType: _sortType,searchType:_searchType));
         });
-        //TODO: set new Search type. Provider Time ?
       },
     );
   }

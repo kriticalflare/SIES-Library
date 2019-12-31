@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sies_library/database/favourites_dao.dart';
+import 'package:sies_library/database/favourites_db.dart';
 import 'package:sies_library/providers/api_provider.dart';
 import 'package:sies_library/screens/favourites_page.dart';
 import 'package:sies_library/screens/homepage.dart';
@@ -78,12 +80,9 @@ class _ContainerPageState extends State<ContainerPage> {
           ),
         ),
       ),
-      body: ChangeNotifierProvider<ApiProvider>(
-        create: (_) => ApiProvider(),
-        child: PageStorage(
-          bucket: _bucket,
-          child: currentPage,
-        ),
+      body: PageStorage(
+        bucket: _bucket,
+        child: currentPage,
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.search),
