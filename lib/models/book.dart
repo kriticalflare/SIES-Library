@@ -129,4 +129,21 @@ class Results {
     return data;
   }
 
+  Results.fromJsonDB(Map<String, dynamic> json) {
+    sId = json['sId'];
+    sN = json['sN'];
+    author1 = json['author1'];
+    author2 = json['author2'];
+    author3 = json['author3'];
+    title = json['title'];
+    edition = json['edition'];
+    year = json['year'];
+    publisher = json['publisher'];
+    pages = json['pages'];
+    language = json['language'];
+    iSBNISSN = json['iSBN/ISSN'];
+    quantity = json['quantity'];
+    iV = json['iv'];
+  }
+
 }

@@ -6,6 +6,7 @@ import 'package:sies_library/models/book.dart';
 import 'package:sies_library/components/author_row.dart';
 import 'package:sies_library/components/publisher_info.dart';
 import 'package:sies_library/components/lang_isbn.dart';
+import 'package:sies_library/providers/db_provider.dart';
 
 class DetailsPage extends StatefulWidget {
   final Results book;
@@ -17,16 +18,36 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
-  
+  DbProvider dbProvider;
   Widget favouritesButton(Results book) {
-    IconData icon = Icons.star;
     FavouritesDao favouritesDao = Provider.of<FavouritesDao>(context);
-    return IconButton(
-      icon: Icon(icon),
-      onPressed: () {
-        print(book.title);
-        favouritesDao.insertFav(book);
-      },
+    DbProvider dbProvider = DbProvider(favouritesDao, book);
+    return StreamBuilder<bool>(
+      stream: dbProvider.favStatus.stream,
+      builder: (context, snapshot) {
+        if(snapshot.hasData){
+          if(snapshot.data){
+            return IconButton(
+              icon: Icon(Icons.star),
+              onPressed: () {
+                print(book.title);
+                dbProvider.favStatus.sink.add(false);
+                favouritesDao.deleteFav(book);
+              },
+            );
+          }
+          if(!snapshot.data){
+            return IconButton(
+              icon: Icon(Icons.star_border),
+              onPressed: () {
+                print(book.title);
+                favouritesDao.insertFav(book);
+              },
+            );
+          }
+        }
+        return Container();
+      }
     );
   }
 
@@ -83,5 +104,11 @@ class _DetailsPageState extends State<DetailsPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    dbProvider?.dispose();
+    super.dispose();
   }
 }
