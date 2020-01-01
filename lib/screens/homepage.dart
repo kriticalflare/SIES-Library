@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sies_library/components/BookListItem.dart';
 import 'package:sies_library/providers/api_provider.dart';
 
@@ -67,7 +68,26 @@ class _HomePageState extends State<HomePage> {
       builder: (context, apiProvider, _) {
         return Container(
             child: apiProvider.bookList.isEmpty
-                ? Center(child: CircularProgressIndicator())
+                ? ListView.builder(
+                    itemCount: 30,
+                    itemBuilder: (context, index) {
+                      return Shimmer.fromColors(
+                        baseColor: Colors.grey[600],
+                        highlightColor: Colors.grey[400],
+                        child: ListTile(
+                          leading: Container(
+                            height: 24.0,
+                            width: 24.0,
+                            color: Colors.red,
+                          ),
+                          title: Container(
+                            height: 24.0,
+                            width: 70.0,
+                            color: Colors.red, //Apparently shimmer doesnt work without specifying colour here
+                          ),
+                        ),
+                      );
+                    })
                 : _createListView(apiProvider));
       },
     );

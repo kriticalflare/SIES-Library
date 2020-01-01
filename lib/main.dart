@@ -8,7 +8,7 @@ import 'database/favourites_db.dart';
 import 'models/sort_state.dart';
 
 void main() {
-//  WidgetsFlutterBinding.ensureInitialized(); see https://github.com/flutter/flutter/issues/46849
+  WidgetsFlutterBinding.ensureInitialized(); // see https://github.com/flutter/flutter/issues/46849
   final String appDocumentDir = '/data/user/0/com.kriticalflare.sies_library/app_flutter';
   Hive.init(appDocumentDir);
   Hive.registerAdapter(SortStateAdapter(), 0);
