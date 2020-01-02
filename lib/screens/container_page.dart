@@ -51,6 +51,7 @@ class _ContainerPageState extends State<ContainerPage> {
       appBar: AppBar(
         title: TypewriterAnimatedTextKit(
           text: ['SIES Library'],
+          totalRepeatCount: double.maxFinite.toInt(),
           speed: Duration(milliseconds: 800),
           onTap: (){
             showAboutDialog(
