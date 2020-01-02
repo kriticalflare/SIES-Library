@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sies_library/database/favourites_dao.dart';
@@ -48,15 +49,17 @@ class _ContainerPageState extends State<ContainerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: GestureDetector(
-          onTap: () {
+        title: TypewriterAnimatedTextKit(
+          text: ['SIES Library'],
+          speed: Duration(milliseconds: 800),
+          onTap: (){
             showAboutDialog(
                 context: context,
                 applicationName: 'Sies Library',
                 applicationVersion: '1.1.0',
                 applicationIcon: Image.asset('assets/appicon.png'),
                 applicationLegalese:
-                    'App by @kriticalflare  \n\nUses icons from icons8.com',
+                'App by @kriticalflare  \n\nUses icons from icons8.com',
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 30),
@@ -74,10 +77,6 @@ class _ContainerPageState extends State<ContainerPage> {
                   )
                 ]);
           },
-          child: Text(
-            'Sies Library',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
         ),
       ),
       body: PageStorage(
