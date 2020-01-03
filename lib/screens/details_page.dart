@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share/share.dart';
 import 'package:sies_library/components/info_group_yp.dart';
 import 'package:sies_library/database/favourites_dao.dart';
 import 'package:sies_library/models/book.dart';
@@ -19,36 +20,48 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   DbProvider dbProvider;
+
+  Widget shareButton(Results book) {
+    String bookAuthor = book.author1 != null ? "by ${book.author1}" : '';
+    return IconButton(
+      icon: Icon(Icons.share),
+      onPressed: () {
+        Share.share(
+            "Here’s a book for you… ${book.title} ${bookAuthor}\nFor more such books, get the SIES Library App\n https://github.com/kriticalflare/SIES-Library/releases/latest ",
+        );
+      },
+    );
+  }
+
   Widget favouritesButton(Results book) {
     FavouritesDao favouritesDao = Provider.of<FavouritesDao>(context);
     DbProvider dbProvider = DbProvider(favouritesDao, book);
     return StreamBuilder<bool>(
-      stream: dbProvider.favStatus.stream,
-      builder: (context, snapshot) {
-        if(snapshot.hasData){
-          if(snapshot.data){
-            return IconButton(
-              icon: Icon(Icons.star),
-              onPressed: () {
-                print(book.title);
-                dbProvider.favStatus.sink.add(false);
-                favouritesDao.deleteFav(book);
-              },
-            );
+        stream: dbProvider.favStatus.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data) {
+              return IconButton(
+                icon: Icon(Icons.star),
+                onPressed: () {
+                  print(book.title);
+                  dbProvider.favStatus.sink.add(false);
+                  favouritesDao.deleteFav(book);
+                },
+              );
+            }
+            if (!snapshot.data) {
+              return IconButton(
+                icon: Icon(Icons.star_border),
+                onPressed: () {
+                  print(book.title);
+                  favouritesDao.insertFav(book);
+                },
+              );
+            }
           }
-          if(!snapshot.data){
-            return IconButton(
-              icon: Icon(Icons.star_border),
-              onPressed: () {
-                print(book.title);
-                favouritesDao.insertFav(book);
-              },
-            );
-          }
-        }
-        return Container();
-      }
-    );
+          return Container();
+        });
   }
 
   @override
@@ -65,6 +78,7 @@ class _DetailsPageState extends State<DetailsPage> {
         title: Text('Details'),
         actions: <Widget>[
           favouritesButton(_book),
+          shareButton(_book)
         ],
       ),
       body: SafeArea(
