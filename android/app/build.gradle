@@ -60,6 +60,12 @@ android {
             storeFile file(keystoreProperties['storeFile'])
             storePassword keystoreProperties['storePassword']
         }
+        debug {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
     }
 
     buildTypes {
@@ -72,7 +78,6 @@ android {
         }
 
         debug {
-//            signingConfig signingConfigs.release
             signingConfig signingConfigs.debug
         }
     }
