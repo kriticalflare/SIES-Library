@@ -2,10 +2,10 @@
  
 Prepared by
  
-1.	@kriticalflare
-2.	@barath121      	
-3.  @sasukeuzumaki31        	
-4.  @mithil467
+1.	[@kriticalflare](https://github.com/kriticalflare)
+2.	[@barath121](https://github.com/barath121)      	
+3. [@sasukeuzumaki31](https://github.com/sasukeuzumaki31)       	
+4. [@mithil467](https://github.com/mithil467)
 
 ### 1. Introduction: -
  
@@ -56,6 +56,7 @@ related to the project,  we think, it was a major step to make a performance eff
 ### 6. Results :-
 #### ● HOME PAGE
  <img src="https://github.com/kriticalflare/SIES-Library/blob/master/demo/images/image7.jpg" width="420" height="720">
+ <img src="https://github.com/kriticalflare/SIES-Library/blob/master/demo/images/home.gif" width="420" height="720">
 
 #### ● SEARCH
  <img src="https://github.com/kriticalflare/SIES-Library/blob/master/demo/images/image9.jpg" width="420" height="720">
@@ -70,8 +71,8 @@ related to the project,  we think, it was a major step to make a performance eff
  <img src="https://github.com/kriticalflare/SIES-Library/blob/master/demo/images/image1.jpg" width="420" height="720">
 
 #### ● FAVOURITES
- <img src="https://github.com/kriticalflare/SIES-Library/blob/master/demo/images/image4.jpg" width="420" height="720">
-
+ <img src="https://github.com/kriticalflare/SIES-Library/blob/master/demo/images/fav.gif" width="420" height="720">
+ 
 ### 7.	Conclusion :-
 The SIES library catalog is a very user-friendly application which would surely help students to explore our library in a 
 different, easily accessible and inexhaustible manner. I hope you enjoy this app as much as we enjoyed coding it.
