@@ -4,14 +4,14 @@ import 'package:sies_library/services/network_helper.dart';
 class GoogleBooksService {
   NetworkHelper networkHelper = NetworkHelper();
 
-  Future<void> getBooksResults() async{
+  Future<Items> getBooksResults(String query) async{
     try{
-      var decodedData = await networkHelper.getGBooksData();
+      var decodedData = await networkHelper.getGBooksData(query);
       print(decodedData);
       List<Items> items = GoogleBooks.fromJson(decodedData).items;
       Items item = items.elementAt(0);
       print(item.volumeInfo.title);
-      return items;
+      return item;
     }catch (e){
       print(e.toString());
     }

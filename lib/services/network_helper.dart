@@ -27,12 +27,7 @@ class NetworkHelper{
     }
   }
 
-  Future<dynamic> getGBooksData() async {
-    //TEST
-    String query = 'Programming';
-
-
-    //TEST
+  Future<dynamic> getGBooksData(String query) async {
     String encodedQuery = Uri.encodeComponent(query);
     String url = 'https://www.googleapis.com/books/v1/volumes?q=$encodedQuery';
     http.Response response = await http.get(url);
