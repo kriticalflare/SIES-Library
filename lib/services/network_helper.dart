@@ -10,7 +10,7 @@ class NetworkHelper{
 
   final String apiUrl = 'https://barathlibrary.herokuapp.com/book?';
 
-  Future<dynamic> getData(String requestType,String query, String limit, String page,String sortType) async{
+  Future<dynamic> getLibraryData(String requestType,String query, String limit, String page,String sortType) async{
     // requestType can be title , author or publisher
     String encodedQuery = Uri.encodeComponent(query); //Encode the query acc to https://www.w3schools.com/tags/ref_urlencode.asp
 //    print('EncodedQuery : $encodedQuery');
@@ -20,6 +20,24 @@ class NetworkHelper{
     if(response.statusCode == 200){
       var data = response.body.toString();
 //      print(data);
+      var decodedData = jsonDecode(data);
+      return decodedData;
+    } else {
+      print(response.statusCode);
+    }
+  }
+
+  Future<dynamic> getGBooksData() async {
+    //TEST
+    String query = 'Programming';
+
+
+    //TEST
+    String encodedQuery = Uri.encodeComponent(query);
+    String url = 'https://www.googleapis.com/books/v1/volumes?q=$encodedQuery';
+    http.Response response = await http.get(url);
+    if(response.statusCode == 200){
+      var data = response.body.toString();
       var decodedData = jsonDecode(data);
       return decodedData;
     } else {
