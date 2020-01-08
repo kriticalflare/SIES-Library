@@ -143,6 +143,7 @@ class VolumeInfo {
         : null;
     pageCount = json['pageCount'];
     printType = json['printType'];
+//    https://github.com/dart-lang/site-www/issues/736 for categories. Json to dart still uses cast
     categories = json['categories'] != null
         ? List<String>.from(json['categories'])
         : null;
