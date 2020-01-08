@@ -42,7 +42,7 @@ class _DetailsPageState extends State<DetailsPage> {
           if (snapshot.hasData) {
             if (snapshot.data) {
               return IconButton(
-                icon: Icon(Icons.star),
+                icon: Icon(Icons.bookmark),
                 onPressed: () {
                   print(book.title);
                   dbProvider.favStatus.sink.add(false);
@@ -52,7 +52,7 @@ class _DetailsPageState extends State<DetailsPage> {
             }
             if (!snapshot.data) {
               return IconButton(
-                icon: Icon(Icons.star_border),
+                icon: Icon(Icons.bookmark_border),
                 onPressed: () {
                   print(book.title);
                   favouritesDao.insertFav(book);
