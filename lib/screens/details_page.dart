@@ -3,18 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:sies_library/components/category_chips.dart';
 import 'package:sies_library/components/description_widget.dart';
-import 'package:sies_library/components/info_group_yp.dart';
 import 'package:sies_library/components/info_widget.dart';
 import 'package:sies_library/components/read_widget.dart';
 import 'package:sies_library/components/title_widget.dart';
 import 'package:sies_library/database/favourites_dao.dart';
 import 'package:sies_library/models/book.dart';
-import 'package:sies_library/components/author_row.dart';
-import 'package:sies_library/components/publisher_info.dart';
-import 'package:sies_library/components/lang_isbn.dart';
 import 'package:sies_library/models/google_books.dart';
 import 'package:sies_library/providers/db_provider.dart';
 import 'package:sies_library/providers/gbook_provider.dart';
+import 'package:sies_library/screens/fav_details.dart';
 
 class DetailsPage extends StatefulWidget {
   final Results book;
@@ -71,6 +68,21 @@ class _DetailsPageState extends State<DetailsPage> {
         });
   }
 
+  Widget legacyFallBack(Results book){
+    return IconButton(
+      icon: Icon(
+        Icons.open_in_browser,
+      ),
+      onPressed: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){
+          return ApiDetailPage(
+            book: book,
+          );
+        }));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Results _book = widget.book;
@@ -83,7 +95,7 @@ class _DetailsPageState extends State<DetailsPage> {
           },
         ),
         title: Text('Details'),
-        actions: <Widget>[favouritesButton(_book), shareButton(_book)],
+        actions: <Widget>[favouritesButton(_book), shareButton(_book) , legacyFallBack(_book) ],
       ),
       body: Consumer<GBookProvider>(
         builder:
