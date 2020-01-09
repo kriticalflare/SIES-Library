@@ -22,9 +22,16 @@ class BookListItem extends StatelessWidget {
         if (pop) {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
-            return DetailsPage(
-              book:
-                  book != null ? book : Results.fromJsonDB(favourite.toJson()),
+            return  ChangeNotifierProvider<GBookProvider>(
+              child: DetailsPage(
+                book: book != null
+                    ? book
+                    : Results.fromJsonDB(favourite.toJson()),
+              ),
+              create: (BuildContext context) {
+                return GBookProvider(
+                    book.title ?? Results.fromJsonDB(favourite.toJson()));
+              },
             );
           }));
         } else {
