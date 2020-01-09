@@ -13,10 +13,14 @@ class DescriptionWidget extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(
+            child: description != null ? Text(
               description,
               overflow: TextOverflow.clip,
-            ),
+            ) : Center(
+              child: Text(
+                'Oops! We couldnt find any info on this book'
+              ),
+            )
           ),
         )
       ],

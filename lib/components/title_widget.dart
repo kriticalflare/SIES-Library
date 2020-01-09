@@ -15,9 +15,11 @@ class TitleWidget extends StatelessWidget {
         //Image
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ClipRRect(
+          child: imageUrl != null ? ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(imageUrl)),
+              child: Image.network(imageUrl, height: 160, width: 128,)) : Icon(
+            Icons.description
+          )
         ),
         Expanded(
           child: Column(

@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<ApiProvider>(create: (_) => ApiProvider()),
         Provider<FavouritesDao>(create: (_) => FavouritesDatabase().favouritesDao),
-        ChangeNotifierProvider<GBookProvider>(create: (_) => GBookProvider()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark(),

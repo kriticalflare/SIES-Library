@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sies_library/database/favourites_db.dart';
 import 'package:sies_library/models/book.dart';
+import 'package:sies_library/providers/gbook_provider.dart';
 import 'package:sies_library/screens/details_page.dart';
 
 class BookListItem extends StatelessWidget {
@@ -21,13 +23,22 @@ class BookListItem extends StatelessWidget {
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return DetailsPage(
-              book: book != null ? book : Results.fromJsonDB(favourite.toJson()),
+              book:
+                  book != null ? book : Results.fromJsonDB(favourite.toJson()),
             );
           }));
         } else {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return DetailsPage(
-              book: book != null ? book : Results.fromJsonDB(favourite.toJson()),
+            return ChangeNotifierProvider<GBookProvider>(
+              child: DetailsPage(
+                book: book != null
+                    ? book
+                    : Results.fromJsonDB(favourite.toJson()),
+              ),
+              create: (BuildContext context) {
+                return GBookProvider(
+                    book.title ?? Results.fromJsonDB(favourite.toJson()));
+              },
             );
           }));
         }
