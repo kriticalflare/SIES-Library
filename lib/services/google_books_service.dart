@@ -5,15 +5,15 @@ class GoogleBooksService {
   NetworkHelper networkHelper = NetworkHelper();
 
   Future<Items> getBooksResults(String query) async{
-//    try{
+    try{
       var decodedData = await networkHelper.getGBooksData(query);
-      print(decodedData);
+//      print(decodedData);
       List<Items> items = GoogleBooks.fromJson(decodedData).items;
       Items item = items.elementAt(0);
-      print(item.volumeInfo.title);
+//      print(item.volumeInfo.title);
       return item;
-//    }catch (e){
-//      print(e.toString());
-//    }
+    }catch (e){
+      print(e.toString());
+    }
   }
 }

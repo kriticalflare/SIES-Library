@@ -23,7 +23,7 @@ class FavouritesDao extends DatabaseAccessor<FavouritesDatabase>
       (select(favourites)..where((f) => f.sId.equals(favourite.sId))).watchSingle();
 
   void insertFav(Results result) {
-    print(result.title);
+//    print(result.title);
     Favourite fav = Favourite.fromJson(result.toJsonDB());
     print(fav);
     _insertFavourite(fav);

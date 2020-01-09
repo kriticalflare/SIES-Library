@@ -12,6 +12,7 @@ import 'package:sies_library/models/book.dart';
 import 'package:sies_library/components/author_row.dart';
 import 'package:sies_library/components/publisher_info.dart';
 import 'package:sies_library/components/lang_isbn.dart';
+import 'package:sies_library/models/google_books.dart';
 import 'package:sies_library/providers/db_provider.dart';
 import 'package:sies_library/providers/gbook_provider.dart';
 
@@ -50,7 +51,7 @@ class _DetailsPageState extends State<DetailsPage> {
               return IconButton(
                 icon: Icon(Icons.bookmark),
                 onPressed: () {
-                  print(book.title);
+//                  print(book.title);
                   dbProvider.favStatus.sink.add(false);
                   favouritesDao.deleteFav(book);
                 },
@@ -60,7 +61,7 @@ class _DetailsPageState extends State<DetailsPage> {
               return IconButton(
                 icon: Icon(Icons.bookmark_border),
                 onPressed: () {
-                  print(book.title);
+//                  print(book.title);
                   favouritesDao.insertFav(book);
                 },
               );
@@ -87,6 +88,7 @@ class _DetailsPageState extends State<DetailsPage> {
       body: Consumer<GBookProvider>(
         builder:
             (BuildContext context, GBookProvider gBookProvider, Widget child) {
+          List<IndustryIdentifiers> identifierList;
           return gBookProvider.isLoading
               ? Center(
                   child: CircularProgressIndicator(),
@@ -118,7 +120,14 @@ class _DetailsPageState extends State<DetailsPage> {
                           SizedBox(
                             height: 20,
                           ),
-                          ReadWidget(),
+                          ReadWidget(
+                            isbn:  gBookProvider.bookItem.volumeInfo.industryIdentifiers != null
+                                ? gBookProvider.bookItem.volumeInfo.industryIdentifiers.where((i) => i.type.contains('ISBN_10')).toList().isNotEmpty
+                                    ? gBookProvider.bookItem.volumeInfo.industryIdentifiers.where((i) => i.type.contains('ISBN_10')).toList()[0].identifier
+                                    : ''
+                                : '', // I heard you like nested ternary operators
+                            previewLink: gBookProvider.bookItem.volumeInfo.previewLink,
+                          ),
                           CategoryChips(
                             categories:
                                 gBookProvider.bookItem.volumeInfo.categories != null ? gBookProvider.bookItem.volumeInfo.categories : List<String>.filled(1, "N/A"),

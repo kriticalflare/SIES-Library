@@ -23,7 +23,7 @@ class NetworkHelper{
       var decodedData = jsonDecode(data);
       return decodedData;
     } else {
-      print(response.statusCode);
+//      print(response.statusCode);
     }
   }
 
@@ -36,7 +36,7 @@ class NetworkHelper{
       var decodedData = jsonDecode(data);
       return decodedData;
     } else {
-      print(response.statusCode);
+//      print(response.statusCode);
     }
   }
 }

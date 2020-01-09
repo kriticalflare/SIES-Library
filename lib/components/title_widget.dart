@@ -14,13 +14,16 @@ class TitleWidget extends StatelessWidget {
       children: <Widget>[
         //Image
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: imageUrl != null ? ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(imageUrl, height: 160, width: 128,)) : Icon(
-            Icons.description
-          )
-        ),
+            padding: const EdgeInsets.all(8.0),
+            child: imageUrl != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      imageUrl,
+                      height: 160,
+                      width: 128,
+                    ))
+                : Icon(Icons.description, size: 120,)),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
