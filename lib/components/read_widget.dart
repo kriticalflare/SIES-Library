@@ -3,10 +3,11 @@ import 'package:sies_library/screens/read_web_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReadWidget extends StatelessWidget {
-  final String isbn;
+  final String volumeId;
+  final bool availability;
   final String previewLink;
 
-  ReadWidget({this.isbn, this.previewLink}){
+  ReadWidget({this.volumeId, this.previewLink, this.availability}){
 //    print(previewLink);
 //    print(isbn);
   }
@@ -19,17 +20,20 @@ class ReadWidget extends StatelessWidget {
         //Read or Preview button
         FlatButton(
           child: Container(
-            color: Colors.blue,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.circular(20)
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
               child: Text('Read'),
             ),
           ),
-          onPressed:  isbn.isNotEmpty ? () {
+          onPressed:  availability ? () {
             Navigator.push(context, MaterialPageRoute(
               builder: (context){
                 return ReadWebView(
-                  isbn: isbn,
+                  volumeId: volumeId,
                 );
               }
             ));

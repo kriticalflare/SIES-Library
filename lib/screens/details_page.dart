@@ -100,7 +100,6 @@ class _DetailsPageState extends State<DetailsPage> {
       body: Consumer<GBookProvider>(
         builder:
             (BuildContext context, GBookProvider gBookProvider, Widget child) {
-          List<IndustryIdentifiers> identifierList;
           return gBookProvider.isLoading
               ? Center(
                   child: CircularProgressIndicator(),
@@ -133,12 +132,10 @@ class _DetailsPageState extends State<DetailsPage> {
                             height: 20,
                           ),
                           ReadWidget(
-                            isbn:  gBookProvider.bookItem.volumeInfo.industryIdentifiers != null
-                                ? gBookProvider.bookItem.volumeInfo.industryIdentifiers.where((i) => i.type.contains('ISBN_10')).toList().isNotEmpty
-                                    ? gBookProvider.bookItem.volumeInfo.industryIdentifiers.where((i) => i.type.contains('ISBN_10')).toList()[0].identifier
-                                    : ''
-                                : '', // I heard you like nested ternary operators
+                            volumeId:  gBookProvider.bookItem.id != null
+                                ? gBookProvider.bookItem.id : '',
                             previewLink: gBookProvider.bookItem.volumeInfo.previewLink,
+                            availability: gBookProvider.bookItem.volumeInfo.readingModes.image || gBookProvider.bookItem.volumeInfo.readingModes.text ,
                           ),
                           CategoryChips(
                             categories:

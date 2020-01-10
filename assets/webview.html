@@ -8,9 +8,9 @@
     <script type="text/javascript">
       google.books.load();
 
-      function initialize(isbn) {
+      function initialize(volumeId) {
         var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-        viewer.load('ISBN:'+ isbn);
+        viewer.load(volumeId);
       }
 
       google.books.setOnLoadCallback(initialize.bind(null,'replace'));
