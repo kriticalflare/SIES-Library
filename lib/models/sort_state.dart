@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'sort_state.g.dart';
 
-@HiveType()
+@HiveType(typeId: 0)
 class SortState {
 
   @HiveField(0)

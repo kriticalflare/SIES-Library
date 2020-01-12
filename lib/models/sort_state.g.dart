@@ -8,6 +8,9 @@ part of 'sort_state.dart';
 
 class SortStateAdapter extends TypeAdapter<SortState> {
   @override
+  final typeId = 0;
+
+  @override
   SortState read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
