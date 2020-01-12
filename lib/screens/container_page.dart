@@ -1,12 +1,8 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sies_library/database/favourites_dao.dart';
-import 'package:sies_library/database/favourites_db.dart';
-import 'package:sies_library/providers/api_provider.dart';
 import 'package:sies_library/screens/favourites_page.dart';
 import 'package:sies_library/screens/homepage.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:sies_library/util/util_methods.dart';
 
 import 'book_search_delegate.dart';
 
@@ -16,15 +12,6 @@ class ContainerPage extends StatefulWidget {
 }
 
 class _ContainerPageState extends State<ContainerPage> {
-  _launchURL() async {
-    const url = 'https://github.com/kriticalflare/SIES-Library';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   Key _homePageKey;
   Key _favouritesPageKey;
   PageStorageBucket _bucket;
@@ -62,19 +49,24 @@ class _ContainerPageState extends State<ContainerPage> {
                 applicationLegalese:
                 'App by @kriticalflare  \n\nUses icons from icons8.com',
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 30),
-                    child: Center(
-                      child: GestureDetector(
-                          onTap: () {
-                            _launchURL();
-                          },
-                          child: Image.asset(
-                            'assets/github.png',
-                            height: 70,
-                            width: 70,
-                          )),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top: 30),
+                        child: Center(
+                          child: GestureDetector(
+                              onTap: () {
+                                UtilMethods.launchURL('https://github.com/kriticalflare/SIES-Library');
+                              },
+                              child: Image.asset(
+                                'assets/github.png',
+                                height: 70,
+                                width: 70,
+                              )),
+                        ),
+                      ),
+                    ],
                   )
                 ]);
           },

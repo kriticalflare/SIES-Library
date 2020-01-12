@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sies_library/screens/read_web_view.dart';
+import 'package:sies_library/util/util_methods.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ReadWidget extends StatelessWidget {
@@ -7,10 +8,7 @@ class ReadWidget extends StatelessWidget {
   final bool availability;
   final String previewLink;
 
-  ReadWidget({this.volumeId, this.previewLink, this.availability}){
-//    print(previewLink);
-//    print(isbn);
-  }
+  ReadWidget({this.volumeId, this.previewLink, this.availability});
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +40,7 @@ class ReadWidget extends StatelessWidget {
         IconButton(
           icon: Icon( Icons.open_in_new,),
           onPressed: previewLink.isNotEmpty && previewLink != null ? ()async{
-            if (await canLaunch(previewLink)) {
-              await launch(previewLink);
-            } else {
-              throw 'Could not launch $previewLink';
-            }
+            UtilMethods.launchURL(previewLink);
           } : null ,
         )
       ],
