@@ -44,7 +44,7 @@ class _ContainerPageState extends State<ContainerPage> {
             showAboutDialog(
                 context: context,
                 applicationName: 'Sies Library',
-                applicationVersion: '1.1.0',
+                applicationVersion: '2.0.0',
                 applicationIcon: Image.asset('assets/appicon.png'),
                 applicationLegalese:
                 'App by @kriticalflare  \n\nUses icons from icons8.com',
