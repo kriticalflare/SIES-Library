@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.12.0+4
-  provider: ^4.0.1
+  provider: ^4.0.2
   url_launcher: ^5.4.1
   hive: ^1.3.0
   hive_flutter: ^0.3.0+1
@@ -31,7 +31,7 @@ dependencies:
   shimmer: ^1.0.1
   animated_text_kit: ^2.0.0
   share: ^0.6.3+5
-  webview_flutter: ^0.3.19+4
+  webview_flutter: ^0.3.19+5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
