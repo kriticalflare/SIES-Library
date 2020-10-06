@@ -123,7 +123,7 @@ class _DetailsPageState extends State<DetailsPage> {
                             height: 10,
                           ),
                           InfoWidget(
-                            stars: gBookProvider.bookItem.volumeInfo.averageRating.toString(),
+                            stars: gBookProvider.bookItem.volumeInfo.averageRating,
                             ratingsCount: gBookProvider.bookItem.volumeInfo.ratingsCount.toString(),
                             pages: gBookProvider.bookItem.volumeInfo.pageCount.toString(),
                             year: gBookProvider.bookItem.volumeInfo.publishedDate,
