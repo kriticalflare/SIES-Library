@@ -17,6 +17,6 @@ class Favourites extends Table {
   IntColumn get iV => integer().nullable()();
 
   @override
-  Set<Column<dynamic, SqlType>> get primaryKey => {sId};
+  Set<Column> get primaryKey => {sId};
   
 }

@@ -69,48 +69,55 @@ class Favourite extends DataClass implements Insertable<Favourite> {
       iV: intType.mapFromDatabaseResponse(data['${effectivePrefix}i_v']),
     );
   }
-  factory Favourite.fromJson(Map<String, dynamic> json,
-      {ValueSerializer serializer = const ValueSerializer.defaults()}) {
-    return Favourite(
-      sId: serializer.fromJson<String>(json['sId']),
-      sN: serializer.fromJson<int>(json['sN']),
-      author1: serializer.fromJson<String>(json['author1']),
-      author2: serializer.fromJson<String>(json['author2']),
-      author3: serializer.fromJson<String>(json['author3']),
-      title: serializer.fromJson<String>(json['title']),
-      edition: serializer.fromJson<String>(json['edition']),
-      year: serializer.fromJson<int>(json['year']),
-      publisher: serializer.fromJson<String>(json['publisher']),
-      pages: serializer.fromJson<String>(json['pages']),
-      language: serializer.fromJson<String>(json['language']),
-      iSBNISSN: serializer.fromJson<String>(json['iSBNISSN']),
-      quantity: serializer.fromJson<int>(json['quantity']),
-      iV: serializer.fromJson<int>(json['iV']),
-    );
-  }
   @override
-  Map<String, dynamic> toJson(
-      {ValueSerializer serializer = const ValueSerializer.defaults()}) {
-    return <String, dynamic>{
-      'sId': serializer.toJson<String>(sId),
-      'sN': serializer.toJson<int>(sN),
-      'author1': serializer.toJson<String>(author1),
-      'author2': serializer.toJson<String>(author2),
-      'author3': serializer.toJson<String>(author3),
-      'title': serializer.toJson<String>(title),
-      'edition': serializer.toJson<String>(edition),
-      'year': serializer.toJson<int>(year),
-      'publisher': serializer.toJson<String>(publisher),
-      'pages': serializer.toJson<String>(pages),
-      'language': serializer.toJson<String>(language),
-      'iSBNISSN': serializer.toJson<String>(iSBNISSN),
-      'quantity': serializer.toJson<int>(quantity),
-      'iV': serializer.toJson<int>(iV),
-    };
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (!nullToAbsent || sId != null) {
+      map['s_id'] = Variable<String>(sId);
+    }
+    if (!nullToAbsent || sN != null) {
+      map['s_n'] = Variable<int>(sN);
+    }
+    if (!nullToAbsent || author1 != null) {
+      map['author1'] = Variable<String>(author1);
+    }
+    if (!nullToAbsent || author2 != null) {
+      map['author2'] = Variable<String>(author2);
+    }
+    if (!nullToAbsent || author3 != null) {
+      map['author3'] = Variable<String>(author3);
+    }
+    if (!nullToAbsent || title != null) {
+      map['title'] = Variable<String>(title);
+    }
+    if (!nullToAbsent || edition != null) {
+      map['edition'] = Variable<String>(edition);
+    }
+    if (!nullToAbsent || year != null) {
+      map['year'] = Variable<int>(year);
+    }
+    if (!nullToAbsent || publisher != null) {
+      map['publisher'] = Variable<String>(publisher);
+    }
+    if (!nullToAbsent || pages != null) {
+      map['pages'] = Variable<String>(pages);
+    }
+    if (!nullToAbsent || language != null) {
+      map['language'] = Variable<String>(language);
+    }
+    if (!nullToAbsent || iSBNISSN != null) {
+      map['i_s_b_n_i_s_s_n'] = Variable<String>(iSBNISSN);
+    }
+    if (!nullToAbsent || quantity != null) {
+      map['quantity'] = Variable<int>(quantity);
+    }
+    if (!nullToAbsent || iV != null) {
+      map['i_v'] = Variable<int>(iV);
+    }
+    return map;
   }
 
-  @override
-  FavouritesCompanion createCompanion(bool nullToAbsent) {
+  FavouritesCompanion toCompanion(bool nullToAbsent) {
     return FavouritesCompanion(
       sId: sId == null && nullToAbsent ? const Value.absent() : Value(sId),
       sN: sN == null && nullToAbsent ? const Value.absent() : Value(sN),
@@ -145,6 +152,47 @@ class Favourite extends DataClass implements Insertable<Favourite> {
           : Value(quantity),
       iV: iV == null && nullToAbsent ? const Value.absent() : Value(iV),
     );
+  }
+
+  factory Favourite.fromJson(Map<String, dynamic> json,
+      {ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return Favourite(
+      sId: serializer.fromJson<String>(json['sId']),
+      sN: serializer.fromJson<int>(json['sN']),
+      author1: serializer.fromJson<String>(json['author1']),
+      author2: serializer.fromJson<String>(json['author2']),
+      author3: serializer.fromJson<String>(json['author3']),
+      title: serializer.fromJson<String>(json['title']),
+      edition: serializer.fromJson<String>(json['edition']),
+      year: serializer.fromJson<int>(json['year']),
+      publisher: serializer.fromJson<String>(json['publisher']),
+      pages: serializer.fromJson<String>(json['pages']),
+      language: serializer.fromJson<String>(json['language']),
+      iSBNISSN: serializer.fromJson<String>(json['iSBNISSN']),
+      quantity: serializer.fromJson<int>(json['quantity']),
+      iV: serializer.fromJson<int>(json['iV']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer serializer}) {
+    serializer ??= moorRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'sId': serializer.toJson<String>(sId),
+      'sN': serializer.toJson<int>(sN),
+      'author1': serializer.toJson<String>(author1),
+      'author2': serializer.toJson<String>(author2),
+      'author3': serializer.toJson<String>(author3),
+      'title': serializer.toJson<String>(title),
+      'edition': serializer.toJson<String>(edition),
+      'year': serializer.toJson<int>(year),
+      'publisher': serializer.toJson<String>(publisher),
+      'pages': serializer.toJson<String>(pages),
+      'language': serializer.toJson<String>(language),
+      'iSBNISSN': serializer.toJson<String>(iSBNISSN),
+      'quantity': serializer.toJson<int>(quantity),
+      'iV': serializer.toJson<int>(iV),
+    };
   }
 
   Favourite copyWith(
@@ -294,6 +342,40 @@ class FavouritesCompanion extends UpdateCompanion<Favourite> {
     this.iV = const Value.absent(),
   })  : sId = Value(sId),
         title = Value(title);
+  static Insertable<Favourite> custom({
+    Expression<String> sId,
+    Expression<int> sN,
+    Expression<String> author1,
+    Expression<String> author2,
+    Expression<String> author3,
+    Expression<String> title,
+    Expression<String> edition,
+    Expression<int> year,
+    Expression<String> publisher,
+    Expression<String> pages,
+    Expression<String> language,
+    Expression<String> iSBNISSN,
+    Expression<int> quantity,
+    Expression<int> iV,
+  }) {
+    return RawValuesInsertable({
+      if (sId != null) 's_id': sId,
+      if (sN != null) 's_n': sN,
+      if (author1 != null) 'author1': author1,
+      if (author2 != null) 'author2': author2,
+      if (author3 != null) 'author3': author3,
+      if (title != null) 'title': title,
+      if (edition != null) 'edition': edition,
+      if (year != null) 'year': year,
+      if (publisher != null) 'publisher': publisher,
+      if (pages != null) 'pages': pages,
+      if (language != null) 'language': language,
+      if (iSBNISSN != null) 'i_s_b_n_i_s_s_n': iSBNISSN,
+      if (quantity != null) 'quantity': quantity,
+      if (iV != null) 'i_v': iV,
+    });
+  }
+
   FavouritesCompanion copyWith(
       {Value<String> sId,
       Value<int> sN,
@@ -325,6 +407,75 @@ class FavouritesCompanion extends UpdateCompanion<Favourite> {
       quantity: quantity ?? this.quantity,
       iV: iV ?? this.iV,
     );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (sId.present) {
+      map['s_id'] = Variable<String>(sId.value);
+    }
+    if (sN.present) {
+      map['s_n'] = Variable<int>(sN.value);
+    }
+    if (author1.present) {
+      map['author1'] = Variable<String>(author1.value);
+    }
+    if (author2.present) {
+      map['author2'] = Variable<String>(author2.value);
+    }
+    if (author3.present) {
+      map['author3'] = Variable<String>(author3.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (edition.present) {
+      map['edition'] = Variable<String>(edition.value);
+    }
+    if (year.present) {
+      map['year'] = Variable<int>(year.value);
+    }
+    if (publisher.present) {
+      map['publisher'] = Variable<String>(publisher.value);
+    }
+    if (pages.present) {
+      map['pages'] = Variable<String>(pages.value);
+    }
+    if (language.present) {
+      map['language'] = Variable<String>(language.value);
+    }
+    if (iSBNISSN.present) {
+      map['i_s_b_n_i_s_s_n'] = Variable<String>(iSBNISSN.value);
+    }
+    if (quantity.present) {
+      map['quantity'] = Variable<int>(quantity.value);
+    }
+    if (iV.present) {
+      map['i_v'] = Variable<int>(iV.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('FavouritesCompanion(')
+          ..write('sId: $sId, ')
+          ..write('sN: $sN, ')
+          ..write('author1: $author1, ')
+          ..write('author2: $author2, ')
+          ..write('author3: $author3, ')
+          ..write('title: $title, ')
+          ..write('edition: $edition, ')
+          ..write('year: $year, ')
+          ..write('publisher: $publisher, ')
+          ..write('pages: $pages, ')
+          ..write('language: $language, ')
+          ..write('iSBNISSN: $iSBNISSN, ')
+          ..write('quantity: $quantity, ')
+          ..write('iV: $iV')
+          ..write(')'))
+        .toString();
   }
 }
 
@@ -525,89 +676,69 @@ class $FavouritesTable extends Favourites
   @override
   final String actualTableName = 'favourites';
   @override
-  VerificationContext validateIntegrity(FavouritesCompanion d,
+  VerificationContext validateIntegrity(Insertable<Favourite> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
-    if (d.sId.present) {
-      context.handle(_sIdMeta, sId.isAcceptableValue(d.sId.value, _sIdMeta));
-    } else if (sId.isRequired && isInserting) {
+    final data = instance.toColumns(true);
+    if (data.containsKey('s_id')) {
+      context.handle(
+          _sIdMeta, sId.isAcceptableOrUnknown(data['s_id'], _sIdMeta));
+    } else if (isInserting) {
       context.missing(_sIdMeta);
     }
-    if (d.sN.present) {
-      context.handle(_sNMeta, sN.isAcceptableValue(d.sN.value, _sNMeta));
-    } else if (sN.isRequired && isInserting) {
-      context.missing(_sNMeta);
+    if (data.containsKey('s_n')) {
+      context.handle(_sNMeta, sN.isAcceptableOrUnknown(data['s_n'], _sNMeta));
     }
-    if (d.author1.present) {
+    if (data.containsKey('author1')) {
       context.handle(_author1Meta,
-          author1.isAcceptableValue(d.author1.value, _author1Meta));
-    } else if (author1.isRequired && isInserting) {
-      context.missing(_author1Meta);
+          author1.isAcceptableOrUnknown(data['author1'], _author1Meta));
     }
-    if (d.author2.present) {
+    if (data.containsKey('author2')) {
       context.handle(_author2Meta,
-          author2.isAcceptableValue(d.author2.value, _author2Meta));
-    } else if (author2.isRequired && isInserting) {
-      context.missing(_author2Meta);
+          author2.isAcceptableOrUnknown(data['author2'], _author2Meta));
     }
-    if (d.author3.present) {
+    if (data.containsKey('author3')) {
       context.handle(_author3Meta,
-          author3.isAcceptableValue(d.author3.value, _author3Meta));
-    } else if (author3.isRequired && isInserting) {
-      context.missing(_author3Meta);
+          author3.isAcceptableOrUnknown(data['author3'], _author3Meta));
     }
-    if (d.title.present) {
+    if (data.containsKey('title')) {
       context.handle(
-          _titleMeta, title.isAcceptableValue(d.title.value, _titleMeta));
-    } else if (title.isRequired && isInserting) {
+          _titleMeta, title.isAcceptableOrUnknown(data['title'], _titleMeta));
+    } else if (isInserting) {
       context.missing(_titleMeta);
     }
-    if (d.edition.present) {
+    if (data.containsKey('edition')) {
       context.handle(_editionMeta,
-          edition.isAcceptableValue(d.edition.value, _editionMeta));
-    } else if (edition.isRequired && isInserting) {
-      context.missing(_editionMeta);
+          edition.isAcceptableOrUnknown(data['edition'], _editionMeta));
     }
-    if (d.year.present) {
+    if (data.containsKey('year')) {
       context.handle(
-          _yearMeta, year.isAcceptableValue(d.year.value, _yearMeta));
-    } else if (year.isRequired && isInserting) {
-      context.missing(_yearMeta);
+          _yearMeta, year.isAcceptableOrUnknown(data['year'], _yearMeta));
     }
-    if (d.publisher.present) {
+    if (data.containsKey('publisher')) {
       context.handle(_publisherMeta,
-          publisher.isAcceptableValue(d.publisher.value, _publisherMeta));
-    } else if (publisher.isRequired && isInserting) {
-      context.missing(_publisherMeta);
+          publisher.isAcceptableOrUnknown(data['publisher'], _publisherMeta));
     }
-    if (d.pages.present) {
+    if (data.containsKey('pages')) {
       context.handle(
-          _pagesMeta, pages.isAcceptableValue(d.pages.value, _pagesMeta));
-    } else if (pages.isRequired && isInserting) {
-      context.missing(_pagesMeta);
+          _pagesMeta, pages.isAcceptableOrUnknown(data['pages'], _pagesMeta));
     }
-    if (d.language.present) {
+    if (data.containsKey('language')) {
       context.handle(_languageMeta,
-          language.isAcceptableValue(d.language.value, _languageMeta));
-    } else if (language.isRequired && isInserting) {
-      context.missing(_languageMeta);
+          language.isAcceptableOrUnknown(data['language'], _languageMeta));
     }
-    if (d.iSBNISSN.present) {
-      context.handle(_iSBNISSNMeta,
-          iSBNISSN.isAcceptableValue(d.iSBNISSN.value, _iSBNISSNMeta));
-    } else if (iSBNISSN.isRequired && isInserting) {
-      context.missing(_iSBNISSNMeta);
+    if (data.containsKey('i_s_b_n_i_s_s_n')) {
+      context.handle(
+          _iSBNISSNMeta,
+          iSBNISSN.isAcceptableOrUnknown(
+              data['i_s_b_n_i_s_s_n'], _iSBNISSNMeta));
     }
-    if (d.quantity.present) {
+    if (data.containsKey('quantity')) {
       context.handle(_quantityMeta,
-          quantity.isAcceptableValue(d.quantity.value, _quantityMeta));
-    } else if (quantity.isRequired && isInserting) {
-      context.missing(_quantityMeta);
+          quantity.isAcceptableOrUnknown(data['quantity'], _quantityMeta));
     }
-    if (d.iV.present) {
-      context.handle(_iVMeta, iV.isAcceptableValue(d.iV.value, _iVMeta));
-    } else if (iV.isRequired && isInserting) {
-      context.missing(_iVMeta);
+    if (data.containsKey('i_v')) {
+      context.handle(_iVMeta, iV.isAcceptableOrUnknown(data['i_v'], _iVMeta));
     }
     return context;
   }
@@ -618,54 +749,6 @@ class $FavouritesTable extends Favourites
   Favourite map(Map<String, dynamic> data, {String tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
     return Favourite.fromData(data, _db, prefix: effectivePrefix);
-  }
-
-  @override
-  Map<String, Variable> entityToSql(FavouritesCompanion d) {
-    final map = <String, Variable>{};
-    if (d.sId.present) {
-      map['s_id'] = Variable<String, StringType>(d.sId.value);
-    }
-    if (d.sN.present) {
-      map['s_n'] = Variable<int, IntType>(d.sN.value);
-    }
-    if (d.author1.present) {
-      map['author1'] = Variable<String, StringType>(d.author1.value);
-    }
-    if (d.author2.present) {
-      map['author2'] = Variable<String, StringType>(d.author2.value);
-    }
-    if (d.author3.present) {
-      map['author3'] = Variable<String, StringType>(d.author3.value);
-    }
-    if (d.title.present) {
-      map['title'] = Variable<String, StringType>(d.title.value);
-    }
-    if (d.edition.present) {
-      map['edition'] = Variable<String, StringType>(d.edition.value);
-    }
-    if (d.year.present) {
-      map['year'] = Variable<int, IntType>(d.year.value);
-    }
-    if (d.publisher.present) {
-      map['publisher'] = Variable<String, StringType>(d.publisher.value);
-    }
-    if (d.pages.present) {
-      map['pages'] = Variable<String, StringType>(d.pages.value);
-    }
-    if (d.language.present) {
-      map['language'] = Variable<String, StringType>(d.language.value);
-    }
-    if (d.iSBNISSN.present) {
-      map['i_s_b_n_i_s_s_n'] = Variable<String, StringType>(d.iSBNISSN.value);
-    }
-    if (d.quantity.present) {
-      map['quantity'] = Variable<int, IntType>(d.quantity.value);
-    }
-    if (d.iV.present) {
-      map['i_v'] = Variable<int, IntType>(d.iV.value);
-    }
-    return map;
   }
 
   @override
@@ -683,5 +766,7 @@ abstract class _$FavouritesDatabase extends GeneratedDatabase {
   FavouritesDao get favouritesDao =>
       _favouritesDao ??= FavouritesDao(this as FavouritesDatabase);
   @override
-  List<TableInfo> get allTables => [favourites];
+  Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
+  @override
+  List<DatabaseSchemaEntity> get allSchemaEntities => [favourites];
 }

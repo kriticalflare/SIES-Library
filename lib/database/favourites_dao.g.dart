@@ -7,5 +7,5 @@ part of 'favourites_dao.dart';
 // **************************************************************************
 
 mixin _$FavouritesDaoMixin on DatabaseAccessor<FavouritesDatabase> {
-  $FavouritesTable get favourites => db.favourites;
+  $FavouritesTable get favourites => attachedDatabase.favourites;
 }

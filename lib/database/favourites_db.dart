@@ -1,8 +1,9 @@
 
 import 'dart:io';
 
-import 'package:moor_ffi/moor_ffi.dart';
+import 'package:moor/ffi.dart';
 import 'package:moor/moor.dart';
+import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 import 'package:sies_library/database/favourites.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
