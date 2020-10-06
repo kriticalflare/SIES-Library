@@ -91,7 +91,7 @@ class VolumeInfo {
   int pageCount;
   String printType;
   List<String> categories;
-  double averageRating;
+  String averageRating;
   int ratingsCount;
   String maturityRating;
   bool allowAnonLogging;
@@ -149,7 +149,7 @@ class VolumeInfo {
     categories = json['categories'] != null
         ? List<String>.from(json['categories'])
         : null;
-    averageRating = json['averageRating'];
+    averageRating = json['averageRating'].toString();
     ratingsCount = json['ratingsCount'];
     maturityRating = json['maturityRating'];
     allowAnonLogging = json['allowAnonLogging'];
