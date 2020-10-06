@@ -38,6 +38,9 @@ class _ContainerPageState extends State<ContainerPage> {
       appBar: AppBar(
         title: TypewriterAnimatedTextKit(
           text: ['SIES Library'],
+          textStyle: TextStyle(
+            fontSize: 18
+          ),
           totalRepeatCount: double.maxFinite.toInt(),
           speed: Duration(milliseconds: 800),
           onTap: (){
