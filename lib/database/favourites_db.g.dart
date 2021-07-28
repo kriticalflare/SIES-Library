@@ -40,33 +40,35 @@ class Favourite extends DataClass implements Insertable<Favourite> {
   factory Favourite.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
-    final stringType = db.typeSystem.forDartType<String>();
-    final intType = db.typeSystem.forDartType<int>();
     return Favourite(
-      sId: stringType.mapFromDatabaseResponse(data['${effectivePrefix}s_id']),
-      sN: intType.mapFromDatabaseResponse(data['${effectivePrefix}s_n']),
-      author1:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}author1']),
-      author2:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}author2']),
-      author3:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}author3']),
-      title:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}title']),
-      edition:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}edition']),
-      year: intType.mapFromDatabaseResponse(data['${effectivePrefix}year']),
-      publisher: stringType
+      sId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}s_id']),
+      sN: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}s_n']),
+      author1: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}author1']),
+      author2: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}author2']),
+      author3: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}author3']),
+      title: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}title']),
+      edition: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}edition']),
+      year: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}year']),
+      publisher: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}publisher']),
-      pages:
-          stringType.mapFromDatabaseResponse(data['${effectivePrefix}pages']),
-      language: stringType
+      pages: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}pages']),
+      language: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}language']),
-      iSBNISSN: stringType
+      iSBNISSN: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}i_s_b_n_i_s_s_n']),
-      quantity:
-          intType.mapFromDatabaseResponse(data['${effectivePrefix}quantity']),
-      iV: intType.mapFromDatabaseResponse(data['${effectivePrefix}i_v']),
+      quantity: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}quantity']),
+      iV: const IntType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}i_v']),
     );
   }
   @override
@@ -275,7 +277,7 @@ class Favourite extends DataClass implements Insertable<Favourite> {
                                                   $mrjc(quantity.hashCode,
                                                       iV.hashCode))))))))))))));
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Favourite &&
           other.sId == this.sId &&
@@ -485,173 +487,89 @@ class $FavouritesTable extends Favourites
   final String _alias;
   $FavouritesTable(this._db, [this._alias]);
   final VerificationMeta _sIdMeta = const VerificationMeta('sId');
-  GeneratedTextColumn _sId;
+  GeneratedColumn<String> _sId;
   @override
-  GeneratedTextColumn get sId => _sId ??= _constructSId();
-  GeneratedTextColumn _constructSId() {
-    return GeneratedTextColumn(
-      's_id',
-      $tableName,
-      false,
-    );
-  }
-
+  GeneratedColumn<String> get sId =>
+      _sId ??= GeneratedColumn<String>('s_id', aliasedName, false,
+          typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _sNMeta = const VerificationMeta('sN');
-  GeneratedIntColumn _sN;
+  GeneratedColumn<int> _sN;
   @override
-  GeneratedIntColumn get sN => _sN ??= _constructSN();
-  GeneratedIntColumn _constructSN() {
-    return GeneratedIntColumn(
-      's_n',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<int> get sN =>
+      _sN ??= GeneratedColumn<int>('s_n', aliasedName, true,
+          typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _author1Meta = const VerificationMeta('author1');
-  GeneratedTextColumn _author1;
+  GeneratedColumn<String> _author1;
   @override
-  GeneratedTextColumn get author1 => _author1 ??= _constructAuthor1();
-  GeneratedTextColumn _constructAuthor1() {
-    return GeneratedTextColumn(
-      'author1',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get author1 =>
+      _author1 ??= GeneratedColumn<String>('author1', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _author2Meta = const VerificationMeta('author2');
-  GeneratedTextColumn _author2;
+  GeneratedColumn<String> _author2;
   @override
-  GeneratedTextColumn get author2 => _author2 ??= _constructAuthor2();
-  GeneratedTextColumn _constructAuthor2() {
-    return GeneratedTextColumn(
-      'author2',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get author2 =>
+      _author2 ??= GeneratedColumn<String>('author2', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _author3Meta = const VerificationMeta('author3');
-  GeneratedTextColumn _author3;
+  GeneratedColumn<String> _author3;
   @override
-  GeneratedTextColumn get author3 => _author3 ??= _constructAuthor3();
-  GeneratedTextColumn _constructAuthor3() {
-    return GeneratedTextColumn(
-      'author3',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get author3 =>
+      _author3 ??= GeneratedColumn<String>('author3', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  GeneratedTextColumn _title;
+  GeneratedColumn<String> _title;
   @override
-  GeneratedTextColumn get title => _title ??= _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn(
-      'title',
-      $tableName,
-      false,
-    );
-  }
-
+  GeneratedColumn<String> get title =>
+      _title ??= GeneratedColumn<String>('title', aliasedName, false,
+          typeName: 'TEXT', requiredDuringInsert: true);
   final VerificationMeta _editionMeta = const VerificationMeta('edition');
-  GeneratedTextColumn _edition;
+  GeneratedColumn<String> _edition;
   @override
-  GeneratedTextColumn get edition => _edition ??= _constructEdition();
-  GeneratedTextColumn _constructEdition() {
-    return GeneratedTextColumn(
-      'edition',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get edition =>
+      _edition ??= GeneratedColumn<String>('edition', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _yearMeta = const VerificationMeta('year');
-  GeneratedIntColumn _year;
+  GeneratedColumn<int> _year;
   @override
-  GeneratedIntColumn get year => _year ??= _constructYear();
-  GeneratedIntColumn _constructYear() {
-    return GeneratedIntColumn(
-      'year',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<int> get year =>
+      _year ??= GeneratedColumn<int>('year', aliasedName, true,
+          typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _publisherMeta = const VerificationMeta('publisher');
-  GeneratedTextColumn _publisher;
+  GeneratedColumn<String> _publisher;
   @override
-  GeneratedTextColumn get publisher => _publisher ??= _constructPublisher();
-  GeneratedTextColumn _constructPublisher() {
-    return GeneratedTextColumn(
-      'publisher',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get publisher =>
+      _publisher ??= GeneratedColumn<String>('publisher', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _pagesMeta = const VerificationMeta('pages');
-  GeneratedTextColumn _pages;
+  GeneratedColumn<String> _pages;
   @override
-  GeneratedTextColumn get pages => _pages ??= _constructPages();
-  GeneratedTextColumn _constructPages() {
-    return GeneratedTextColumn(
-      'pages',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get pages =>
+      _pages ??= GeneratedColumn<String>('pages', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _languageMeta = const VerificationMeta('language');
-  GeneratedTextColumn _language;
+  GeneratedColumn<String> _language;
   @override
-  GeneratedTextColumn get language => _language ??= _constructLanguage();
-  GeneratedTextColumn _constructLanguage() {
-    return GeneratedTextColumn(
-      'language',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get language =>
+      _language ??= GeneratedColumn<String>('language', aliasedName, true,
+          typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _iSBNISSNMeta = const VerificationMeta('iSBNISSN');
-  GeneratedTextColumn _iSBNISSN;
+  GeneratedColumn<String> _iSBNISSN;
   @override
-  GeneratedTextColumn get iSBNISSN => _iSBNISSN ??= _constructISBNISSN();
-  GeneratedTextColumn _constructISBNISSN() {
-    return GeneratedTextColumn(
-      'i_s_b_n_i_s_s_n',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<String> get iSBNISSN => _iSBNISSN ??= GeneratedColumn<String>(
+      'i_s_b_n_i_s_s_n', aliasedName, true,
+      typeName: 'TEXT', requiredDuringInsert: false);
   final VerificationMeta _quantityMeta = const VerificationMeta('quantity');
-  GeneratedIntColumn _quantity;
+  GeneratedColumn<int> _quantity;
   @override
-  GeneratedIntColumn get quantity => _quantity ??= _constructQuantity();
-  GeneratedIntColumn _constructQuantity() {
-    return GeneratedIntColumn(
-      'quantity',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<int> get quantity =>
+      _quantity ??= GeneratedColumn<int>('quantity', aliasedName, true,
+          typeName: 'INTEGER', requiredDuringInsert: false);
   final VerificationMeta _iVMeta = const VerificationMeta('iV');
-  GeneratedIntColumn _iV;
+  GeneratedColumn<int> _iV;
   @override
-  GeneratedIntColumn get iV => _iV ??= _constructIV();
-  GeneratedIntColumn _constructIV() {
-    return GeneratedIntColumn(
-      'i_v',
-      $tableName,
-      true,
-    );
-  }
-
+  GeneratedColumn<int> get iV =>
+      _iV ??= GeneratedColumn<int>('i_v', aliasedName, true,
+          typeName: 'INTEGER', requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [
         sId,
@@ -670,11 +588,9 @@ class $FavouritesTable extends Favourites
         iV
       ];
   @override
-  $FavouritesTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'favourites';
   @override
-  String get $tableName => _alias ?? 'favourites';
-  @override
-  final String actualTableName = 'favourites';
+  String get actualTableName => 'favourites';
   @override
   VerificationContext validateIntegrity(Insertable<Favourite> instance,
       {bool isInserting = false}) {
@@ -747,8 +663,8 @@ class $FavouritesTable extends Favourites
   Set<GeneratedColumn> get $primaryKey => {sId};
   @override
   Favourite map(Map<String, dynamic> data, {String tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return Favourite.fromData(data, _db, prefix: effectivePrefix);
+    return Favourite.fromData(data, _db,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
   }
 
   @override

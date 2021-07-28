@@ -16,7 +16,7 @@ class NetworkHelper{
 //    print('EncodedQuery : $encodedQuery');
     String url = '$apiUrl$requestType=$encodedQuery&limit=$limit&page=$page&sort=$sortType';
 //    print(url);
-    http.Response response = await http.get(url);
+    http.Response response = await http.get(Uri.parse(url));
     if(response.statusCode == 200){
       var data = response.body.toString();
 //      print(data);
@@ -30,7 +30,7 @@ class NetworkHelper{
   Future<dynamic> getGBooksData(String query) async {
     String encodedQuery = Uri.encodeComponent(query);
     String url = 'https://www.googleapis.com/books/v1/volumes?q=$encodedQuery';
-    http.Response response = await http.get(url);
+    http.Response response = await http.get(Uri.parse(url));
     if(response.statusCode == 200){
       var data = response.body.toString();
       var decodedData = jsonDecode(data);
